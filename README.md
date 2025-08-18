@@ -64,6 +64,8 @@ A aplicação iniciará e o menu interativo será exibido no console.
 👨‍💻 Autor
 John Miguel Da Silva Fernandes
 
+
 ```bash
-git clone [URL-DO-SEU-REPOSITORIO-GITHUB]
+git clone [https://github.com/StJ0hn/Challange-Alura-Literalura]
 cd literaAlura
+```
