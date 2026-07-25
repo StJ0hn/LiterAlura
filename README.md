@@ -51,7 +51,7 @@ The application acts as a local literary catalog, allowing users to search books
 Clone the repository:
 
 ```bash
-git clone https://github.com/StJ0hn/Challange-Alura-Literalura.git
+git clone https://github.com/StJ0hn/LiterAlura.git
 cd Literalura
 ```
 
