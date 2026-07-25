@@ -52,7 +52,7 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/StJ0hn/Challange-Alura-Literalura.git
-cd Challange-Alura-Literalura
+cd Literalura
 ```
 
 Create a PostgreSQL database:
