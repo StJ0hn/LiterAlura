@@ -16,8 +16,8 @@
 ## **Sprint 1 — Minimum safety net (before any refactoring)**
 
 > * **Objective:** To be able to confirm, after each structural change, that the observable behavior has not changed.
-> * \[ \] **Task 1.1:** Manually document the current behavior of each menu option (input → expected output in the console and the database), for each of the 5 functional options.
-> * \[ \] **Task 1.2:** Decide whether, at your current knowledge level, it is worth writing 1–2 simple automated tests (e.g., a repository test) or if the manual checklist from Task 1.1 is sufficient for now.
+- [x] **Task 1.1:** Manually document the current behavior of each menu option (input → expected output in the console and the database), for each of the 5 functional options.
+- [ ] **Task 1.2:** Decide whether, at your current knowledge level, it is worth writing 1–2 simple automated tests (e.g., a repository test) or if the manual checklist from Task 1.1 is sufficient for now.
 
 **Documentation to consult:**
 
@@ -26,10 +26,10 @@
 ## **Sprint 2 — Data model correction**
 
 > * **Objective:** Fix the entity-table mapping and decide on the schema strategy, without touching the service layers.
-> * \[ \] **Task 2.1:** Fix the table mapping for the Autor entity (it currently points to the wrong table name).
-> * \[ \] **Task 2.2:** Decide what to do with the physical table that already exists in your local PostgreSQL before running the application again (you've already concluded that ddl-auto=update does not delete automatically).
-> * \[ \] **Task 2.3:** Review if ddl-auto=update is the appropriate strategy for the current stage of the project (local study environment) or if another option fits better.
-> * \[ \] **Task 2.4 (optional):** Draft the Entity-Relationship Diagram (ERD) with the fix already applied. (Recommended before Sprint 5\)
+- [ ] **Task 2.1:** Fix the table mapping for the Autor entity (it currently points to the wrong table name).
+- [ ] **Task 2.2:** Decide what to do with the physical table that already exists in your local PostgreSQL before running the application again (you've already concluded that ddl-auto=update does not delete automatically).
+- [ ] **Task 2.3:** Review if ddl-auto=update is the appropriate strategy for the current stage of the project (local study environment) or if another option fits better.
+- [ ] **Task 2.4 (optional):** Draft the Entity-Relationship Diagram (ERD) with the fix already applied. (Recommended before Sprint 5\)
 
 **Documentation to consult:**
 
@@ -39,10 +39,10 @@
 ## **Sprint 3 — Introduction of the Service layer**
 
 > * **Objective:** Move the business rule (find-or-create Author, search orchestration) out of Principal, using dependency injection.
-> * \[ \] **Task 3.1:** Create a service class (or more than one, if you conclude that technical infrastructure and business rules deserve separate classes within service) responsible for orchestrating the book search.
-> * \[ \] **Task 3.2:** Transform ConsumoAPI and ConverteDados into Spring-managed beans (instead of new), and inject them via constructor wherever they are needed.
-> * \[ \] **Task 3.3:** Move the "find or create author" logic into the new service layer.
-> * \[ \] **Task 3.4:** Validate with the Sprint 1 checklist that the behavior has not changed.
+- [ ] **Task 3.1:** Create a service class (or more than one, if you conclude that technical infrastructure and business rules deserve separate classes within service) responsible for orchestrating the book search.
+- [ ] **Task 3.2:** Transform ConsumoAPI and ConverteDados into Spring-managed beans (instead of new), and inject them via constructor wherever they are needed.
+- [ ] **Task 3.3:** Move the "find or create author" logic into the new service layer.
+- [ ] **Task 3.4:** Validate with the Sprint 1 checklist that the behavior has not changed.
 
 **Documentation to consult:**
 
@@ -52,8 +52,8 @@
 ## **Sprint 4 — Reduction of Principal to its actual responsibility**
 
 > * **Objective:** Principal should remain responsible only for presentation (menu, reading input, printing output), delegating everything else to the service layer created in Sprint 3\.
-> * \[ \] **Task 4.1:** Review each method in Principal and move everything that is not "read input" or "print output" to the service.
-> * \[ \] **Task 4.2:** Validate again using the Sprint 1 checklist.
+- [ ] **Task 4.1:** Review each method in Principal and move everything that is not "read input" or "print output" to the service.
+- [ ] **Task 4.2:** Validate again using the Sprint 1 checklist.
 
 **Documentation to consult:**
 
@@ -62,9 +62,9 @@
 ## **Sprint 5 — Project Documentation (now that the structure is stable)**
 
 > * **Objective:** Produce the documentation for the project itself—not for the tools—now that the architecture has stopped changing.
-> * \[ \] **Task 5.1:** Final Entity-Relationship Diagram (ERD), reflecting the corrected model.
-> * \[ \] **Task 5.2:** Use Case document, one per menu option (single actor: CLI user).
-> * \[ \] **Task 5.3 (optional):** Package/Layer diagram, showing the separation between presentation → service → repository → model.
+- [ ] **Task 5.1:** Final Entity-Relationship Diagram (ERD), reflecting the corrected model.
+- [ ] **Task 5.2:** Use Case document, one per menu option (single actor: CLI user).
+- [ ] **Task 5.3 (optional):** Package/Layer diagram, showing the separation between presentation → service → repository → model.
 
 **Documentation to consult:**
 
@@ -72,8 +72,8 @@
 
 ## **Sprint 6 (optional) — Automated tests**
 
-> * \[ ] **Task 6.1:** Write tests for the service layer created in Sprint 3 (especially the find-or-create logic).
-> * \[ \] **Task 6.2:** Write repository tests for custom queries (findByIdioma, findByAnoDeNascimentoLessThanEqualAndAnoDeFalecimentoGreaterThanEqual).
+- [ ] **Task 6.1:** Write tests for the service layer created in Sprint 3 (especially the find-or-create logic).
+- [ ] **Task 6.2:** Write repository tests for custom queries (findByIdioma, findByAnoDeNascimentoLessThanEqualAndAnoDeFalecimentoGreaterThanEqual).
 
 **Documentation to consult:**
 
