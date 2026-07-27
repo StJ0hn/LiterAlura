@@ -28,7 +28,7 @@
 - [x] **Task 2.1:** Fix the table mapping for the Autor entity (it currently points to the wrong table name).
 - [x] **Task 2.2:** Delete physical tables in local PostgreSQL and re-create database.
 - [x] **Task 2.3:** Review if ddl-auto=update is the appropriate strategy for the current stage of the project (local study environment) or if another option fits better.
-- [ ] **Task 2.4 (optional):** Draft the Entity-Relationship Diagram (ERD) with the fix already applied. (Recommended before Sprint 5\)
+- [x] **Task 2.4 (optional):** Draft the Entity-Relationship Diagram (ERD) with the fix already applied. (Recommended before Sprint 5\)
 
 **Documentation to consult:**
 
