@@ -28,7 +28,7 @@
 - [x] **Task 2.1:** Fix the table mapping for the Autor entity (it currently points to the wrong table name).
 - [x] **Task 2.2:** Delete physical tables in local PostgreSQL and re-create database.
 - [x] **Task 2.3:** Review if ddl-auto=update is the appropriate strategy for the current stage of the project (local study environment) or if another option fits better.
-- [ ] **Task 2.4 (optional):** Draft the Entity-Relationship Diagram (ERD) with the fix already applied. (Recommended before Sprint 5\)
+- [x] **Task 2.4 (optional):** Draft the Entity-Relationship Diagram (ERD) with the fix already applied. (Recommended before Sprint 5\)
 
 **Documentation to consult:**
 
@@ -38,10 +38,10 @@
 ## **Sprint 3 — Introduction of the Service layer**
 
 > * **Objective:** Move the business rule (find-or-create Author, search orchestration) out of Principal, using dependency injection.
-- [ ] **Task 3.1:** Create a service class (or more than one, if you conclude that technical infrastructure and business rules deserve separate classes within service) responsible for orchestrating the book search.
-- [ ] **Task 3.2:** Transform ConsumoAPI and ConverteDados into Spring-managed beans (instead of new), and inject them via constructor wherever they are needed.
-- [ ] **Task 3.3:** Move the "find or create author" logic into the new service layer.
-- [ ] **Task 3.4:** Validate with the Sprint 1 checklist that the behavior has not changed.
+- [x] **Task 3.1:** Create a service class (or more than one, if you conclude that technical infrastructure and business rules deserve separate classes within service) responsible for orchestrating the book search.
+- [x] **Task 3.2:** Transform ConsumoAPI and ConverteDados into Spring-managed beans (instead of new), and inject them via constructor wherever they are needed.
+- [x] **Task 3.3:** Move the "find or create author" logic into the new service layer.
+- [x] **Task 3.4:** Validate with the Sprint 1 checklist that the behavior has not changed.
 
 **Documentation to consult:**
 

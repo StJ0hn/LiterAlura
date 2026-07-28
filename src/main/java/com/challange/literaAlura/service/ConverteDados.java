@@ -3,7 +3,10 @@ package com.challange.literaAlura.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature; // Import necessário
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Component
 public class ConverteDados {
     private ObjectMapper mapper = new ObjectMapper();
 
