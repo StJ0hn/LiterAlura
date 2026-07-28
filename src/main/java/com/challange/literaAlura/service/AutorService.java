@@ -22,6 +22,6 @@ public class AutorService {
     public Optional<Autor> encontrarPorNome(String nome) { return autorRepository.findByNome(nome); }
 
     public List<Autor> encontrarPorAnoNascimento(Integer anoNascimento){
-        return autorRepository.findByAnoDeNascimento(anoNascimento);
+        return autorRepository.autoresVivosNumDeterminadoAno(anoNascimento);
     }
 }

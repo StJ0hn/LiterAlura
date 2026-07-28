@@ -2,11 +2,14 @@ package com.challange.literaAlura.repository;
 
 import com.challange.literaAlura.model.Autor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AutorRepository extends JpaRepository<Autor, Long> {
     Optional<Autor> findByNome(String nome);
-    List<Autor> findByAnoDeNascimento(Integer anoNascimento);
+    @Query("SELECT a FROM Autor a WHERE a.anoDeNascimento <= :ano AND a.anoDeFalecimento >= :ano")
+    List<Autor> autoresVivosNumDeterminadoAno(@Param("ano") Integer ano);
 }
