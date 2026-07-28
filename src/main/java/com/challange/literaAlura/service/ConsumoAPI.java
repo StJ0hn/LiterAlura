@@ -1,11 +1,15 @@
 package com.challange.literaAlura.service;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+@Component
 public class ConsumoAPI {
     public String obterDados(String endereco) {
         HttpClient client = HttpClient.newHttpClient();

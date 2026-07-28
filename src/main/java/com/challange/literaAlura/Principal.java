@@ -1,50 +1,42 @@
 package com.challange.literaAlura;
 
-import com.challange.literaAlura.dto.AutorDTO;
-import com.challange.literaAlura.dto.LivroDTO;
-import com.challange.literaAlura.dto.ResultadosDTO;
 import com.challange.literaAlura.model.Autor;
 import com.challange.literaAlura.model.Livro;
 import com.challange.literaAlura.repository.AutorRepository;
 import com.challange.literaAlura.repository.LivroRepository;
-import com.challange.literaAlura.service.ConsumoAPI;
-import com.challange.literaAlura.service.ConverteDados;
+import com.challange.literaAlura.service.AutorService;
+import com.challange.literaAlura.service.LivroService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 @Component
 public class Principal {
     private final Scanner leitura = new Scanner(System.in);
-    private final ConsumoAPI consumo = new ConsumoAPI();
-    private final ConverteDados conversor = new ConverteDados();
-    private final String ENDERECO_BASE = "https://gutendex.com/books/";
-    private final LivroRepository livroRepository;
-    private final AutorRepository autorRepository;
+    private final AutorService autorService;
+    private final LivroService livroService;
 
-    public Principal(LivroRepository livroRepository, AutorRepository autorRepository) {
-        this.livroRepository = livroRepository;
-        this.autorRepository = autorRepository;
+    public Principal(AutorService autorService, LivroService livroService) {
+        this.autorService = autorService;
+        this.livroService = livroService;
     }
 
     public void exibeMenu() {
         var opcao = -1;
         while (opcao != 0) {
-            var menu = """
-                    ╔════════════════════════════════════════╗
-                    ║       LITERALURA CATÁLOGO              ║
-                    ╠════════════════════════════════════════╣
-                    ║ 1 - Buscar livro por título            ║
-                    ║ 2 - Listar livros registrados          ║
-                    ║ 3 - Listar autores registrados         ║
-                    ║ 4 - Listar autores vivos em um det. ano║
-                    ║ 5 - Listar livros em um det. idioma    ║
-                    ║                                        ║
-                    ║ 0 - Sair                               ║
-                    ╚════════════════════════════════════════╝
-                    Escolha uma opção: """;
+            String menu = "╔════════════════════════════════════════╗\n" +
+                       "║       LITERALURA CATÁLOGO              ║\n" +
+                       "╠════════════════════════════════════════╣\n" +
+                       "║ 1 - Buscar livro por título            ║\n" +
+                       "║ 2 - Listar livros registrados          ║\n" +
+                       "║ 3 - Listar autores registrados         ║\n" +
+                       "║ 4 - Listar autores vivos em um det. ano║\n" +
+                       "║ 5 - Listar livros em um det. idioma    ║\n" +
+                       "║                                        ║\n" +
+                       "║ 0 - Sair                               ║\n" +
+                       "╚════════════════════════════════════════╝\n" +
+                       "Escolha uma opção: ";
 
             System.out.print(menu);
             opcao = leitura.nextInt();
@@ -77,58 +69,25 @@ public class Principal {
 
     private void buscarLivroPorTitulo() {
         System.out.println("Digite o nome do livro que você deseja buscar:");
-        var nomeLivro = leitura.nextLine();
-        var enderecoBusca = ENDERECO_BASE + "?search=" + nomeLivro.replace(" ", "%20");
-        var json = consumo.obterDados(enderecoBusca);
-        ResultadosDTO dados = conversor.obterDados(json, ResultadosDTO.class);
-
-        if (dados != null && !dados.resultados().isEmpty()) {
-            LivroDTO livroDTO = dados.resultados().get(0);
-
-            Livro livro = new Livro();
-            livro.setTitulo(livroDTO.titulo());
-
-            if (!livroDTO.autores().isEmpty()) {
-                AutorDTO autorDTO = livroDTO.autores().get(0);
-                Optional<Autor> autorExistente = autorRepository.findByNomeContainingIgnoreCase(autorDTO.nome());
-                Autor autor;
-                if (autorExistente.isPresent()) {
-                    autor = autorExistente.get();
-                } else {
-                    autor = new Autor();
-                    autor.setNome(autorDTO.nome());
-                    autor.setAnoDeNascimento(autorDTO.anoDeNascimento());
-                    autor.setAnoDeFalecimento(autorDTO.anoDeFalecimento());
-                }
-                livro.setAutor(autor);
-            } else {
-                livro.setAutor(null);
-            }
-
-            livro.setIdioma(livroDTO.idiomas().get(0));
-            livro.setNumeroDeDownloads(livroDTO.numeroDeDownloads());
-
-            try {
-                livroRepository.save(livro);
-                System.out.println("Livro '" + livro.getTitulo() + "' salvo com sucesso!");
-            } catch (Exception e) {
-                System.out.println("Atenção: Este livro já foi salvo anteriormente.");
-            }
-
+        String nomeLivro = leitura.nextLine();
+        Livro livroSalvo = livroService.buscarESalvarLivros(nomeLivro);
+        if (livroSalvo != null){
             System.out.println("\n--- Livro Encontrado ---");
-            String nomeAutor = (livro.getAutor() != null) ? livro.getAutor().getNome() : "Autor Desconhecido";
-            System.out.println("Título: " + livro.getTitulo());
+            String nomeAutor = (livroSalvo.getAutor() != null) ? livroSalvo.getAutor().getNome() : "Autor Desconhecido";
+            System.out.println("Título: " + livroSalvo.getTitulo());
             System.out.println("Autor: " + nomeAutor);
-            System.out.println("Idioma: " + livro.getIdioma());
-            System.out.println("Downloads: " + livro.getNumeroDeDownloads());
+            System.out.println("Idioma: " + livroSalvo.getIdioma());
+            System.out.println("Downloads: " + livroSalvo.getNumeroDeDownloads());
             System.out.println("-----------------------\n");
-        } else {
+        }
+
+        else {
             System.out.println("Livro não encontrado.");
         }
     }
 
     private void listarLivrosRegistrados() {
-        List<Livro> livros = livroRepository.findAll();
+        List<Livro> livros = livroService.obterTodosOsLivros();
         if (livros.isEmpty()) {
             System.out.println("Nenhum livro registrado ainda.");
         } else {
@@ -145,7 +104,7 @@ public class Principal {
     }
 
     private void listarAutoresRegistrados() {
-        List<Autor> autores = autorRepository.findAll();
+        List<Autor> autores = autorService.obterTodosOsAutores();
 
         if (autores.isEmpty()) {
             System.out.println("Nenhum autor registrado ainda.");
@@ -155,7 +114,6 @@ public class Principal {
                 System.out.println("Nome: " + autor.getNome());
                 System.out.println("Ano de Nascimento: " + autor.getAnoDeNascimento());
                 System.out.println("Ano de Falecimento: " + autor.getAnoDeFalecimento());
-                // Aqui podemos adicionar a lógica para listar os livros do autor no futuro
                 System.out.println("--------------------------\n");
             });
         }
@@ -163,10 +121,10 @@ public class Principal {
 
     private void listarAutoresVivosEmDeterminadoAno() {
         System.out.println("Digite o ano que deseja pesquisar:");
-        var ano = leitura.nextInt();
-        leitura.nextLine(); // Limpa o buffer do teclado
+        int ano = leitura.nextInt();
+        leitura.nextLine();
 
-        List<Autor> autores = autorRepository.findByAnoDeNascimentoLessThanEqualAndAnoDeFalecimentoGreaterThanEqual(ano, ano);
+        List<Autor> autores = autorService.encontrarPorAnoNascimento(ano);
 
         if (autores.isEmpty()) {
             System.out.println("Nenhum autor vivo registrado para o ano de " + ano);
@@ -183,9 +141,9 @@ public class Principal {
 
     private void listarLivrosPorIdioma() {
         System.out.println("Digite o idioma para a busca (ex: pt, en, es, fr):");
-        var idioma = leitura.nextLine();
+        String idioma = leitura.nextLine();
 
-        List<Livro> livros = livroRepository.findByIdioma(idioma);
+        List<Livro> livros = livroService.obterLivrosPorIdioma(idioma);
 
         if (livros.isEmpty()) {
             System.out.println("Nenhum livro encontrado para o idioma: " + idioma);
