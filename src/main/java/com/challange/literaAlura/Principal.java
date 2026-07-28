@@ -1,31 +1,24 @@
 package com.challange.literaAlura;
 
-import com.challange.literaAlura.dto.AutorDTO;
-import com.challange.literaAlura.dto.LivroDTO;
-import com.challange.literaAlura.dto.ResultadosDTO;
 import com.challange.literaAlura.model.Autor;
 import com.challange.literaAlura.model.Livro;
 import com.challange.literaAlura.repository.AutorRepository;
 import com.challange.literaAlura.repository.LivroRepository;
-import com.challange.literaAlura.service.ConsumoAPI;
-import com.challange.literaAlura.service.ConverteDados;
+import com.challange.literaAlura.service.AutorService;
 import com.challange.literaAlura.service.LivroService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 @Component
 public class Principal {
     private final Scanner leitura = new Scanner(System.in);
-    private final LivroRepository livroRepository;
-    private final AutorRepository autorRepository;
+    private final AutorService autorService;
     private final LivroService livroService;
 
-    public Principal(LivroRepository livroRepository, AutorRepository autorRepository, LivroService livroService) {
-        this.livroRepository = livroRepository;
-        this.autorRepository = autorRepository;
+    public Principal(AutorService autorService, LivroService livroService) {
+        this.autorService = autorService;
         this.livroService = livroService;
     }
 
@@ -94,7 +87,7 @@ public class Principal {
     }
 
     private void listarLivrosRegistrados() {
-        List<Livro> livros = livroRepository.findAll();
+        List<Livro> livros = livroService.obterTodosOsLivros();
         if (livros.isEmpty()) {
             System.out.println("Nenhum livro registrado ainda.");
         } else {
@@ -111,7 +104,7 @@ public class Principal {
     }
 
     private void listarAutoresRegistrados() {
-        List<Autor> autores = autorRepository.findAll();
+        List<Autor> autores = autorService.obterTodosOsAutores();
 
         if (autores.isEmpty()) {
             System.out.println("Nenhum autor registrado ainda.");
@@ -131,7 +124,7 @@ public class Principal {
         int ano = leitura.nextInt();
         leitura.nextLine();
 
-        List<Autor> autores = autorRepository.findByAnoDeNascimentoLessThanEqualAndAnoDeFalecimentoGreaterThanEqual(ano, ano);
+        List<Autor> autores = autorService.encontrarPorAnoNascimento(ano);
 
         if (autores.isEmpty()) {
             System.out.println("Nenhum autor vivo registrado para o ano de " + ano);
@@ -150,7 +143,7 @@ public class Principal {
         System.out.println("Digite o idioma para a busca (ex: pt, en, es, fr):");
         String idioma = leitura.nextLine();
 
-        List<Livro> livros = livroRepository.findByIdioma(idioma);
+        List<Livro> livros = livroService.obterLivrosPorIdioma(idioma);
 
         if (livros.isEmpty()) {
             System.out.println("Nenhum livro encontrado para o idioma: " + idioma);

@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AutorRepository extends JpaRepository<Autor, Long> {
-    Optional<Autor> findByNomeContainingIgnoreCase(String nome);
-    List<Autor> findByAnoDeNascimentoLessThanEqualAndAnoDeFalecimentoGreaterThanEqual(Integer anoNascimento, Integer anoFalecimento);
+    Optional<Autor> findByNome(String nome);
+    List<Autor> findByAnoDeNascimento(Integer anoNascimento);
 }

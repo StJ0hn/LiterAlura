@@ -18,14 +18,14 @@ public class LivroService {
     private final ConsumoAPI consumoAPI;
     private final ConverteDados converteDados;
     private final LivroRepository livroRepository;
-    private final AutorRepository autorRepository;
+    private final AutorService autorService;
 
 
-    public LivroService(ConsumoAPI consumoAPI, ConverteDados converteDados, LivroRepository livroRepository, AutorRepository autorRepository){
+    public LivroService(ConsumoAPI consumoAPI, ConverteDados converteDados, LivroRepository livroRepository, AutorService autorService){
         this.consumoAPI = consumoAPI;
         this.converteDados = converteDados;
         this.livroRepository = livroRepository;
-        this.autorRepository = autorRepository;
+        this.autorService = autorService;
     }
 
     public Livro buscarESalvarLivros (String nomeLivro){
@@ -41,7 +41,7 @@ public class LivroService {
 
             if (!livroDTO.autores().isEmpty()) {
                 AutorDTO autorDTO = livroDTO.autores().get(0);
-                Optional<Autor> autorExistente = autorRepository.findByNomeContainingIgnoreCase(autorDTO.nome());
+                Optional<Autor> autorExistente = autorService.encontrarPorNome(autorDTO.nome());
                 Autor autor;
                 if (autorExistente.isPresent()) {
                     autor = autorExistente.get();
@@ -71,4 +71,8 @@ public class LivroService {
     }
 
     public List<Livro> obterTodosOsLivros() { return livroRepository.findAll(); }
+
+    public List<Livro> obterLivrosPorIdioma(String idioma){
+        return livroRepository.findByIdioma(idioma);
+    }
 }
